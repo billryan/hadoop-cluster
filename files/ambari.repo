@@ -1,0 +1,6 @@
+[ambari-repo]
+name=IBM Ambari 1.7 repository
+baseurl=http://ibm-open-platform.ibm.com/repos/Ambari/RHEL6/x86_64/1.7/
+enabled=1
+gpgcheck=1
+gpgkey=http://ibm-open-platform.ibm.com/repos/Ambari/RHEL6/x86_64/1.7/BI-GPG-KEY.public

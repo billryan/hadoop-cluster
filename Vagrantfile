@@ -17,7 +17,28 @@ Vagrant.configure(2) do |config|
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  config.vm.box_check_update = false
+
+  nodes_num = 3
+  n = nodes_num..1
+  (n.first).downto(n.last).each do |i|
+    config.vm.define "node#{i}" do |node|
+      node.vm.provider :virtualbox do |v|
+        v.name = "node#{i}.yuanbin.me"
+      end
+      node.vm.network :private_network, ip: "192.168.33.1#{i}"
+      node.vm.hostname = "node#{i}.yuanbin.me"
+
+      node.vm.provision "shell", path: "scripts/setup-common.sh"
+
+      if i == 1
+        node.vm.provision "file", source: "files/ambari.repo", destination: "/home/vagrant/ambari.repo"
+        node.vm.provision "shell", path: "scripts/setup-ambari.sh"
+      end
+
+      config.vm.synced_folder "../sync", "/vagrant_sync"
+    end
+  end
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,

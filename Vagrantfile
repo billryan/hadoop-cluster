@@ -25,6 +25,8 @@ Vagrant.configure(2) do |config|
     config.vm.define "node#{i}" do |node|
       node.vm.provider :virtualbox do |v|
         v.name = "node#{i}.yuanbin.me"
+	v.cpus = 8
+	v.memory = 8192
       end
       node.vm.network :private_network, ip: "192.168.33.1#{i}"
       node.vm.hostname = "node#{i}.yuanbin.me"

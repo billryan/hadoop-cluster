@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  config.vm.box_check_update = false
+  # config.vm.box_check_update = false
 
   nodes_num = 3
   n = nodes_num..1
@@ -25,8 +25,8 @@ Vagrant.configure(2) do |config|
     config.vm.define "node#{i}" do |node|
       node.vm.provider :virtualbox do |v|
         v.name = "node#{i}.yuanbin.me"
-	v.cpus = 8
-	v.memory = 8192
+	v.cpus = 3
+	v.memory = 1024
       end
       node.vm.network :private_network, ip: "192.168.33.1#{i}"
       node.vm.hostname = "node#{i}.yuanbin.me"
